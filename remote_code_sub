@@ -1,1 +1,38 @@
-int
+def close_ads(browser):
+    time.sleep(3.5)
+    try:
+        for x in reversed(range(1, len(browser.window_handles))):
+            browser.switch_to.window(browser.window_handles[x])
+            browser.close()
+    except:
+        pass
+    browser.switch_to.window(browser.window_handles[0])
+
+def VerifyCV(base_url, media_url, run, browser, quality, pgbr):
+    # Clicking on desired quality
+    browser.get(media_url)
+    
+    pgbr(10); run()
+    elem = browser.find_element_by_xpath('//table[contains(@class, "dls_table")]//tr[td//text()[contains(., "{}p")]]//a[1]'.format(quality))
+    browser.get(base_url + elem.get_attribute('data-url'))
+
+    # Access vidstream
+    WebDriverWait(browser, 9).until(lambda x: 'vidstream' in browser.title.lower())
+
+    # Click on vidstream button and close ads
+    browser.find_element_by_xpath('//*[contains(text(), "Download")]').click()
+
+    pgbr(40); run()
+    close_ads(browser)
+    pgbr(80); run()
+
+    # Get url
+    elem = WebDriverWait(browser, 9).until(
+            EC.presence_of_element_located(
+            (By.XPATH, '//*[contains(text(), "Download")][@href]')
+            ))
+    pgbr(90); run()
+    url = elem.get_attribute('href')
+    pgbr(100); run()
+
+    return url
