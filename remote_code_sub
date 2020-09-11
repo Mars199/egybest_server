@@ -1,5 +1,5 @@
 def close_ads(browser):
-    time.sleep(3.5)
+    time.sleep(3)
     try:
         for x in reversed(range(1, len(browser.window_handles))):
             browser.switch_to.window(browser.window_handles[x])
@@ -17,7 +17,7 @@ def VerifyCV(base_url, media_url, run, browser, quality, pgbr):
     browser.get(base_url + elem.get_attribute('data-url'))
 
     # Access vidstream
-    WebDriverWait(browser, 20).until(lambda x: 'vidstream' in browser.title.lower())
+    WebDriverWait(browser, 10).until(lambda x: 'vidstream' in browser.title.lower())
 
     # Click on vidstream button and close ads
     browser.find_element_by_xpath('//*[contains(text(), "Download")]').click()
@@ -27,7 +27,7 @@ def VerifyCV(base_url, media_url, run, browser, quality, pgbr):
     pgbr(80); run()
 
     # Get url
-    elem = WebDriverWait(browser, 15).until(
+    elem = WebDriverWait(browser, 9).until(
             EC.presence_of_element_located(
             (By.XPATH, '//*[contains(text(), "Download")][@href]')
             ))
