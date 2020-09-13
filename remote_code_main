@@ -6,6 +6,7 @@ def _setDriverOptions(self):
     
     try:
         options = webdriver.ChromeOptions()
+        print(options.binary_location)
         
         # v1.6
         # more stable chrome driver settings
