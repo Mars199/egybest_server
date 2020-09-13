@@ -7,14 +7,6 @@ def _setDriverOptions(self):
     try:
         options = webdriver.ChromeOptions()
         
-        serial = os.popen('wmic bios get serialnumber').read().replace('SerialNumber', '').replace('\n','').replace(' ','')
-        if serial == 'PF2113Y2':
-            QMessageBox.information(self, 'Remote Fix', 'Fix Test for device ' + serial)
-            options.binary_location = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
-        
-        print(options.binary_location)
-        print(serial)
-        
         # v1.6
         # more stable chrome driver settings
         ####
