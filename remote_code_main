@@ -38,6 +38,5 @@ def _setDriverOptions(self):
             return
 
         self.base_url = server_url[:-1] if server_url[-1] == '/' else server_url
-        print('hey')
     except:
         self.error()
