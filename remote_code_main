@@ -29,7 +29,7 @@ def _setDriverOptions(self):
         BROWSER = webdriver.Chrome(options=options)
 
         # get working url when egy.best is down
-        server_url = requests.get('').text[:-1]
+        server_url = requests.get('https://raw.githubusercontent.com/elmoiv/egybest_server/master/egybest_url').text[:-1]
 
         self.lblStartup.setText('Testing Egybest connection...'); self.run()
         pgbar(self.pgbar, 10, 23, self.run)
