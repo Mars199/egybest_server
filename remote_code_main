@@ -26,7 +26,13 @@ def _setDriverOptions(self):
         options.add_experimental_option('excludeSwitches', ['enable-logging'])
         ####
         
-        BROWSER = webdriver.Chrome(options=options)
+        tmp_loc = options.binary_location
+        try:
+            options.binary_location = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
+            BROWSER = webdriver.Chrome(options=options)
+        except:
+            options.binary_location = tmp_loc
+            BROWSER = webdriver.Chrome(options=options)
 
         # get working url when egy.best is down
         server_url = requests.get('https://raw.githubusercontent.com/elmoiv/egybest_server/master/egybest_url').text[:-1]
