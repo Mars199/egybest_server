@@ -1,3 +1,47 @@
+def get_seasons(series_url, base_url):
+    lst = []
+    html = get_egybest_html(series_url)
+    a_hrefs = html_find_all(html)('a')
+    for a in a_hrefs:
+        if a['href'][:8] == '/season/':
+            lst.append(base_url + a['href'])
+    # Organize data in a dict to facilitate working with them in GUI
+    dct = {
+        n:  {
+            'id':'season',
+            'name': ' '.join(url.split('/')[-2].split('-')[-2:]).title(),
+            'url':url,
+            'type':''
+            }   \
+                # Store links reversely cause egybest stores them the opposite way
+                for n, url in enumerate(lst[::-1])
+            }
+    return dct
+
+def get_episodes(season_url, base_url):
+    lst = []
+    series_url = ''
+    html = get_egybest_html(season_url)
+    a_hrefs = html_find_all(html)('a')
+    for a in a_hrefs:
+        if a['href'][:9] == '/episode/':
+            lst.append(base_url + a['href'])
+        # This if block is used later in "go back" mechanism in GUI
+        if a['href'][:8] == '/series/':
+            series_url = base_url + a['href']
+    # Organize data in a dict to facilitate working with them in GUI
+    dct = {
+        n:  {
+            'id':'episode',
+            'name': 'Episode ' + url.split('/')[-2].split('-')[-4:][-1],
+            'url':url,
+            'type':''
+            }   \
+                # Store links reversely cause egybest stores them the opposite way
+                for n, url in enumerate(lst[::-1])
+            }
+    return dct, series_url
+
 def _setDriverOptions(self):
     global BROWSER
         
