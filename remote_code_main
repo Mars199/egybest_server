@@ -1,3 +1,23 @@
+def get_details(html):
+    det = html_find_all(html)('div', {'class':'pda'})[3].text
+    
+    # Process new lines for html
+    det = det.replace('\n', '<br>')
+    
+    # Split English from arabic
+    ar, en = [], []
+    for n in map(ord, det):
+        [en.append, ar.append][n > 1000](n)
+
+    # Detect and align arabic or english
+    # By the lang whose chars are greater
+    if len(en) < len(ar):
+        det = '<p align="right">' + det + '</p>'
+    else:
+        det = '<p align="left">' + det + '</p>'
+
+    return det
+
 def get_seasons(series_url, base_url):
     lst = []
     html = get_egybest_html(series_url)
