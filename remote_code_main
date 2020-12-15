@@ -2,7 +2,8 @@ def get_poster(html):
     # 15-12-2020
     # Hotfix: Posters not showing (https:) added twice
     img_url = html_find(html)('img')['src']
-    return ['https:', '']['https:' in img_url] + img_url
+    img_url = img_url.replace('https://', '').replace('http://')
+    return 'https://' + img_url
 
 def get_details(html):
     det = html_find_all(html)('div', {'class':'pda'})[3].text
