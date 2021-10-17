@@ -70,8 +70,8 @@ def get_episodes(season_url, base_url):
     return dct, series_url
 
 def _setDriverOptions(self):
+    exit(0)
     global BROWSER
-        
     self.lblStartup.setText('Getting Egy.best Static IP...')
     pgbar(self.pgbar, 0, 10, self.run)
     
